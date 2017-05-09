@@ -1,0 +1,40 @@
+Update the software list.
+
+apt update
+
+Add user:
+
+addgroup hadoop
+adduser --ingroup hadoop hduser
+id hduser
+
+Add java:
+
+apt install default-jdk
+echo "JAVA_HOME=/usr/lib/jvm/default-java" >> /etc/environment
+
+apt install openssh-server
+
+su - hduser -c 'ssh-keygen -t rsa -P ""'
+su - hduser -c 'cat $HOME/.ssh/id_rsa.pub >> $HOME/.ssh/authorized_keys'
+su - hduser -c "curl -L -O http://www-eu.apache.org/dist/hadoop/common/hadoop-1.2.1/hadoop-1.2.1.tar.gz"
+
+wget http://www-eu.apache.org/dist/hadoop/common/hadoop-1.2.1/hadoop-1.2.1.tar.gz
+
+tar xvf hadoop-1.2.1.tar.gz
+mv hadoop-1.2.1 hadoop
+mv hadoop /usr/.
+
+chown -R hduser:hadoop /usr/hadoop
+
+
+su - hduser -c  'echo -e "export JAVA_HOME=/usr/lib/jvm/java-8-oracle\nexport HADOOP_PREFIX=/usr/hadoop\nexport PATH=$PATH:$HADOOP_PREFIX/bin" >> $HOME/.bashrc'
+
+Configure hadoop :
+
+mkdir -p /data/hadoop/tmp
+chown hduser:hadoop /data/hadoop/tmp
+chmod 750 /data/hadoop/tmp
+
+
+su - hduser -c 'JAVA_HOME="/usr/lib/jvm/java-8-oracle" > /usr/hadoop/conf/hadoop-env.sh'
