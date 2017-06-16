@@ -14,9 +14,8 @@ while [ $# -gt 0 ] ; do
 	done
 	shift
 	if [ -z "$result" ] ; then
-		echo -n "/default/jaysingh "
+		echo -n "/default/jaysingh"
 	else
-		echo -n "$result "
+		echo -n "$result"
 	fi
 done
-
