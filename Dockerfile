@@ -49,5 +49,7 @@ ADD ssh_config /home/hduser/.ssh/
 RUN chown -R hduser /home/hduser/.ssh
 
 ADD bootstrap.sh /home/hduser/bootstrap.sh	
+
+RUN su - hduser -c 'sed -i "s/\r//g" /home/hduser/bootstrap.sh'
 ENTRYPOINT ["/home/hduser/bootstrap.sh"]
 CMD ["-bash"]
